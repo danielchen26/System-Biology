@@ -1,0 +1,462 @@
+\documentclass{beamer}
+
+\newcommand{\ms}{\medskip}
+
+% important: seems to need graphicx, does not woprk with graphics; maybe
+%         because using png (and old notes have jpg only, so no problem there?)
+\def\FIGDIR{figdir_ingalls}
+%\newcommand{\FIGDIR}{figdir_mathbio_notes}
+
+\newcommand{\Arr}{$\leadsto\;$}
+\newcommand{\red}[1]{{\textcolor{red}{#1}}}
+\usepackage{fancybox}
+
+\setbeamertemplate{navigation symbols}{}
+
+\definecolor{titlecolor}{rgb}{0.75,0.85,0.85} 
+\setbeamercolor{frametitle}{fg=white,bg=titlecolor,shadow=true}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \tableofcontents[current]
+  \end{frame}
+}
+
+\newcommand{\newsl}[1]{\begin{frame}\frametitle{#1}\null\vspace{-20pt}}
+
+\usepackage{graphicx,latexsym,amssymb,amsmath}
+
+\usepackage{color}
+
+\newcommand{\comment}[1]{}
+
+\newcommand{\halmos}{\rule{1ex}{1.4ex}}
+
+%\newcommand{\piccs}[2]{\centerline{\pics{#1}{#2}}}
+%\newcommand{\pics}[2]{\includegraphics[scale=#1]{#2.ps}}
+
+%\newcommand{\pic}[2]{\includegraphics[scale=#1]{#2.eps}}
+\newcommand{\pic}[2]{\includegraphics[scale=#1]{\FIGDIR/#2}}
+\newcommand{\picc}[2]{\centerline{\pic{#1}{#2}}}
+
+\newcommand{\minp}[2]{\begin{minipage}{#1\textwidth}#2\end{minipage}}
+
+\newcommand{\nl}{\newline} %use for printing thoughts in different lines, as
+			   %opposed to ``textbook style'' (redefine as {})
+
+
+\newcommand{\so}{\therefore}
+
+%% Bring items closer together in list environments
+\def\tight{%
+\itemsep=0pt\topsep=0pt\partopsep=0pt\parskip=0pt\parsep=0pt}
+\newenvironment{Itemize}{\itemize\tight}{\endlist}
+\newcommand{\bI}{\begin{Itemize}}
+\newcommand{\eI}{\end{Itemize}}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+\newcommand{\beqn}{\begin{eqnarray*}}
+\newcommand{\eeqn}{\end{eqnarray*}}
+
+\newcommand{\abs}[1]{\left\vert{#1}\right\vert}
+
+\newcommand{\twoif}[4]{
+\left\{ \begin{array}{ll}#1&#2\\#3&#4\end{array}\right.
+}
+\newcommand{\threeif}[6]{
+\left\{ \begin{array}{ll}#1&#2\\#3&#4\\#5&#6\end{array}\right.
+}
+
+
+\newcommand{\R}{{\mathbb R}}  %ams bold
+
+\newcommand{\hatT}{\hat t}
+\newcommand{\starT}{t^*}
+\newcommand{\hatN}{\hat N}
+\newcommand{\starN}{N^*}
+\newcommand{\hatC}{\hat C}
+\newcommand{\starC}{C^*}
+\newcommand{\barX}{\bar{X}}
+\newcommand{\hatX}{\hat{X}}
+\newcommand{\hatv}{\hat v}
+\newcommand{\starv}{v^*}
+\newcommand{\barN}{\bar{N}}
+\newcommand{\barC}{\bar{C}}
+\newcommand{\trace}{\mbox{trace}\,}
+%\newcommand{\det}{\mbox{det}\,}
+\newcommand{\kmax}{k_{\mbox{\small max}}}
+\newcommand{\kn}{k_{n}}
+
+
+\newcommand{\arrowchem}[1]{{\stackrel{\displaystyle#1}{\longrightarrow}}}
+\newcommand{\arrowschem}[2]{\raisebox{-2ex}%
+	{$\stackrel{\stackrel{\displaystyle#1}{\longrightarrow}}%
+	{\stackrel{\longleftarrow}{#2}}$}}
+\newcommand{\kp}{k_{\scriptscriptstyle +}}
+\newcommand{\km}{k_{\scriptscriptstyle -}}
+\newcommand{\keq}{K_{\mbox{\small eq}}}
+\newcommand{\ko}{k_{\scriptscriptstyle 1}}
+\newcommand{\kmo}{k_{\scriptscriptstyle -1}}
+\newcommand{\kt}{k_{\scriptscriptstyle 2}}
+\newcommand{\Km}{K_{\mbox{\tiny m}}}
+\newcommand{\Ki}{K_{\mbox{\small i}}}
+\newcommand{\Kt}{K_{\mbox{\small 2}}}
+\newcommand{\Ko}{K_{\mbox{\small 1}}}
+\newcommand{\Vmax}{V_{\mbox{\tiny max}}}
+\newcommand{\kth}{k_{\scriptscriptstyle 3}}
+\newcommand{\kf}{k_{\scriptscriptstyle 4}}
+\newcommand{\kmth}{k_{\scriptscriptstyle -3}}
+\newcommand{\Su}{P}%substrate
+\newcommand{\Pd}{Q}%substrate
+\newcommand{\ESu}{C}%substrate
+\newcommand{\FPr}{D}%substrate
+
+\newcommand{\ez}{e_{\scriptscriptstyle 0}}
+\newcommand{\iz}{i_{\scriptscriptstyle 0}}
+\newcommand{\sz}{s_{\scriptscriptstyle 0}}
+
+
+
+
+\newcommand{\mypmatrix}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+%\def\today{}
+
+\newcommand{\itt}{$\bullet\;$}
+
+\newcommand{\Pro}{P} %protein; used to be G since I talked of genes
+\newcommand{\pr}{p} %protein concentration
+
+\newcommand{\piccxy}[3]{\centerline{\includegraphics[width=#1,height=#2]{\FIGDIR/#3}}}
+
+
+
+\newcommand{\pics}[3]{\includegraphics<#3>[scale=#1]{\FIGDIR/#2}}
+
+\newcommand{\barg}{\bar{g}}
+
+
+
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\diver}{{\rm div \,}}
+\newcommand{\tripleint}{\mbox{$\int$}\mbox{$\int$}\mbox{$\int$}}
+\newcommand{\lapl}{\nabla^2}
+\newcommand{\pdd}[2]{\frac{\partial ^2 #1}{\partial #2^2}}
+\definecolor{lgray}{gray}{0.6}
+\definecolor{mgray}{gray}{0.7}
+\definecolor{dgray}{gray}{0.5}
+\newcommand{\lgray}[1]{\textcolor{lgray}{#1}}
+
+
+\newcommand{\ans}[1]{}
+%\newcommand{\ans}[1]{
+%
+%{\bf ANSWER:} #1\medskip}
+
+\usepackage{color}  %for changes
+\newcommand{\edo}{\printindex\end{document}}
+\usepackage{times}
+\usepackage{epsf,latexsym,amssymb}
+
+\newcommand{\tim}{} % could be (t)
+
+\begin{document}
+
+%\section{Apoptosis models}
+
+\newsl{Apoptosis}
+
+programmed cell death --cellular suicide-- is called apoptosis
+(from the Greek for ``a falling off''). 
+
+Apoptosis is a necessary part of the
+development of many multicellular organisms.
+
+Some cells play only a transient role during development; when they are no
+longer needed, they receive signals that induce apoptosis. 
+
+(A commonly cited
+example is the tail of a tadpole, which is not needed by the adult frog.)
+
+Compared with death caused by stress or injury, apoptosis is a tidy process;
+rather than spill their contents into the environment, apoptotic cells quietly
+implode, thus ensuring there are no detrimental effects on the surrounding
+tissue. 
+
+\end{frame}\newsl{Caspases}
+
+Apoptosis is invoked by caspase proteins, which are always present in the
+cell, but lie dormant until activated. 
+
+The family of caspase proteins is split
+into two categories:
+%\bi
+%\item
+
+$\bullet$
+Initiator caspases respond to apoptosis-inducing stimuli. 
+
+They can be
+triggered externally (via transmembrane receptors) or internally, by stress
+signals from the mitochondria (e.g., starvation signals).
+
+$\bullet$
+Executioner caspases are activated by initiator caspases. 
+
+They carry out the
+task of cellular destruction by cleaving a number of key proteins and
+activating DNases that degrade the cell's DNA.
+
+\end{frame}\newsl{Model}
+
+\emph{Eissing et al, 2004}
+
+model focuses on caspase-8, an initiator, and caspase-3, an
+executioner
+
+Caspase-8 is triggered by external stimuli
+
+When active, it activates caspase-3
+
+Caspase proteins activated by removal of a
+masking domain, revealing a catalytic site. 
+
+This cleavage is irreversible:
+protein can only be inactivated by degradation
+
+Also production and degradationsprocesses for each protein.
+
+To guarantee that the decision to undergo apoptosis is irreversible, a
+feedback mechanism is in place: active caspase-3 activates caspase-8 
+
+positive feedback ensures that caspase activity is self-perpetuating
+
+in addition to the caspases, the model
+incorporates two proteins, IAP and BAR, which inhibit apoptosis by binding
+active caspases, forming inert complexes
+
+\end{frame}\newsl{Model, ctd}
+
+\picc{0.4}{fig615_ingalls_apoptosis.png}
+
+\emph{Eising apoptosis model (shown not as a chemical reaction network, but 
+using a different graphical representation)}
+
+\end{frame}\newsl{Players in model}
+
+An extracellular signal triggers
+  activation of 
+  caspase-8 (C8*) from its inactive form (C8). 
+
+Once active, caspase-8
+  activates caspase-3 (C3 to C3*). 
+
+Active caspase-3 activates caspase-8,
+  forming a positive feedback loop. 
+
+Two apoptotic inhibitors are included: BAR and IAP. 
+
+These proteins
+  bind active caspase-8 and -3, respectively, thus inhibiting the progression
+  to apoptosis. 
+
+(Dots indicate degraded proteins.)
+
+%Adapted from Figure 1 of
+% Eissing et al., 2004.}
+
+(Dashed lines represent enzymatic reactions like $C3^*+C8 -> C3^* + C8^*$ which
+do not consume the enzyme.  The authors implicitly assume these
+occur fast enough that we ignore intermediate complexes.)
+
+\end{frame}\newsl{Some figures higher pathway complexity!}
+
+\picc{0.2}{caspase_cascade_680.jpg}
+
+\picc{0.2}{another_caspase_cascade_680.jpg}
+
+
+
+\end{frame}\newsl{Equations}
+
+Treating all enzyme-catalyzed reactions as first-order, we can write the model
+as
+\beqn
+d/dt[\mbox{C8}]\tim &=& 
+k_{1}- 
+k_{2}[\mbox{C8}]\tim - 
+k_{3}([\mbox{C3} ^* ]\tim +
+[\mbox{Input}]\tim )!.[\mbox{C8}]\tim 
+\\
+d/dt[\mbox{C8} ^* ]\tim &=&
+k_{3}([\mbox{C3} ^* ]\tim +
+[\mbox{Input}]\tim )!.[\mbox{C8}]\tim - 
+k_{4}[\mbox{C8} ^* ]\tim - 
+k_{5}[\mbox{C8} ^* ]\tim !.[\mbox{BAR}]\tim +
+k_{6}[\mbox{C8} ^* \mbox{BAR}]\tim  
+\\
+d/dt[\mbox{C3}]\tim &=& 
+k_{7}- 
+k_{8}[\mbox{C3}]\tim - 
+k_{9}[\mbox{C8} ^* ]\tim !.[\mbox{C3}]\tim 
+\\
+d/dt[\mbox{C3} ^* ]\tim &=&
+k_{9}[\mbox{C8} ^* ]\tim !.[\mbox{C3}]\tim - 
+k_{10}[\mbox{C3} ^* ]\tim - 
+k_{11}[\mbox{C3} ^* ]\tim !.[\mbox{IAP}]\tim +
+k_{12}[\mbox{C3} ^* IAP]\tim 
+\\
+d/dt[\mbox{BAR}]\tim &=& k_{13}-
+k_{5}[\mbox{C8} ^* ]\tim !.[\mbox{BAR}]\tim +
+k_{6}[\mbox{C8} ^* \mbox{BAR}]\tim -
+k_{14}[\mbox{BAR}]\tim 
+\\
+d/dt[\mbox{IAP}]\tim &=& k_{15}-
+k_{11}[\mbox{C3} ^* ]\tim !.[\mbox{IAP}]\tim +
+k_{12}[\mbox{C3} ^* \mbox{IAP}]\tim - 
+(k_{16}+
+k_{17}[\mbox{C3} ^* ]\tim )!.[\mbox{IAP}]\tim 
+\\
+d/dt[\mbox{C8} ^* \mbox{BAR}]\tim  &=& 
+k_{5}[\mbox{C8} ^* ]\tim !.[\mbox{BAR}]\tim - 
+k_{6}[\mbox{C8} ^* \mbox{BAR}]\tim- 
+k_{18}[\mbox{C8} ^* \mbox{BAR}]\tim 
+\\
+d/dt[\mbox{C3} ^* \mbox{IAP}]\tim &=&
+k_{11}[\mbox{C3} ^* ]\tim !.[\mbox{IAP}]\tim - 
+k_{12}[\mbox{C3} ^* \mbox{IAP}]\tim - 
+k_{19}[\mbox{C3} ^* \mbox{IAP}]\tim 
+\eeqn
+This system is bistable. At low levels of activated caspase, the system is at
+rest in a ``life'' state.  Once caspase activity rises above a threshold, the
+positive feedback commits the system to reaching a steady state with high
+levels of active caspase -- a ``death'' state. (Of course, the death state is
+transient - the cell is being dismantled. We are justified in calling it a
+steady state on the timescale of the signaling pathway.)
+
+The simulation of the model shows the response of the system
+to an input signal.  The system begins at rest with zero input and low caspase
+activity. At time t = 100 minutes an input is introduced, causing a slow
+increase in the activity level of caspase-8. This slow activation leads to a
+rapid rise in caspase activity at about t = 300 minutes. The system then
+settles into the ``death'' state with high caspase activity. When the input
+signal is removed (at time t = 1200 minutes), this self-perpetuating state
+persists, confirming that the system is bistable. Because complete removal of
+the input signal does not cause a return to the initial state, this
+life-to-death transition is irreversible.
+
+\picc{0.4}{fig616_ingalls_apoptosis.png}
+
+\emph{Behavior of the Eissing apoptotic pathway model. This simulation
+begins in the low caspase activity ``life'' state.  At time t =100 minutes, an
+input signal (Input=200) is introduced, causing an increase in caspase-8
+activity. This triggers a positive feedback loop that results in a rapid
+increase in activated caspase-8 and caspase-3 abundance at about t = 300. The
+system then settles to the high caspase-activity ``death'' state. The input
+stimulus is removed at time t =1200 minutes, but there is no effect: the
+apoptotic switch is irreversible.
+Parameter values:
+(in mpc/min) $k_{1} = 507, k_{7} = 81.9, k_{13} = 40, k_{15}= 464$; 
+(in min-1) $k_{2} =3.9 !p 10^{-3} , k_{4} =5.8 !p 10^{-3} , k_{6} =0.21, k_{8}
+=3.9 !p 10^{-3} , k_{10} =5.8 !p 10^{-3} , k_{12} =0.21, k_{14} =1!p 10^{-3},
+k_{16} =1.16!p 10^{-2} , k_{18} =1.16!p 10^{-2} , k_{19} =1.73!p 10^{-2}$;
+in 1/(mpc.min)
+$k_{3} =1!p 10^{-5} , k_{5} =5!p 10^{-4} , k_{9} =5.8!p 10^{-6}, 
+k_{11} =5!p10^{-4} , k_{17} =3!p 10^{-4}$ (mpc =molecules per cell).
+}
+
+
+\end{frame}
+\newsl{Problems}
+
+\ben
+\item
+Write the chemical reaction network (e.g., $BAR+C8^* \leftrightarrow C8^*BAR$,
+etc.) that gives rise to the equations that were given.  
+\item
+For this CRN, write the vector of species, the stoichiometric matrix, and the
+vector of reaction rates, and verify that, multiplying out, one gets the
+equations that were given.
+\item
+%6.8.10 
+(Duration of triggering signal.)
+The simulation shown in the figure is done using
+the MATLAB program \emph{apoptosis\_eissing\_model.m}.
+The input signal was maintained for 900 minutes (until after the system had
+settled to the caspase-active ``death'' state.) 
+Re-run this simulation many times, with different durations,
+until you determine what is the shortest input pulse can
+trigger the irreversible life-to-death transition. Use the same
+input size as in the figure (Input=200).  Your answer should be an integer,
+and you should print out a plot showing the behavior with this duration and
+a plot showing the behavior with 1 minute less.
+(For example, if you find that 323 minutes is the smallest duration that
+works, show the plots for 322 and for 323.)
+
+Be smart about how you do the search - a bisection method worked quite well
+for me.
+
+\ans{I get roughly 125 minutes as the shortest that works.  At 125, I get a
+graph very much as the one in the figure, but at 124, I get a flat line at
+zero, basically.}
+
+\item
+%6.4.1 
+Explain what one means by this statement:
+``In the model, active caspase-3 promotes degradation of IAP.  This interaction
+can be seen as an additional positive feedback of $C3^*$ on itself.''
+Your answer should be a couple of sentences explaining why the degradation of
+IAP implies that $C3^*$ gets to stay around longer than if IAP was not degraded.
+
+\ans{IAP binds active caspase-3, removing it from the pathway.  By enhancing
+degradation of IAP, active caspase-3 increases its own concentration, because
+there is less IAP to bind it. }
+
+Therefore, this degradation helps self-sustained caspase activity, hence also
+helping the positive feedback that makes caspase activation irreversible.
+
+\item
+Which $k_i$ should be set to zero to get rid of the effect of
+caspase-3 promoting degradation of IAP?
+
+\ans{$k_{17}$}
+
+\item
+Simulate (with an input of length 900 and magnitude 200) what happens when the
+$k_i$ from the previous problem is set to zero.  Plot the result and print it.
+
+\ans{
+
+\picc{0.4}{apoptosis_no_degradation_plot_over_2500sec.png}
+}
+\een
+%
+%%6.8.11
+%Additional problem, on model reduction, not assigned:
+%In a 2007 paper, Steffen Waldherr and colleagues presented a reduced version
+%of the apoptosis model shown above.  The authors determined that bistability
+%is retained when a quasi-steady state assumption is applied to four of the
+%state variables.  Verify their finding, as follows. Apply a quasi-steady state
+%assumption to the species [C8], [C3], [IAP] and [BAR] and demonstrate
+%bistability in the reduced model.  (This model reduction was not motivated by
+%a separation of time-scales. Instead, Waldherr and colleagues determined the
+%significance of each state variable for bistability, and eliminated those that
+%were not needed.)
+
+\end{frame}
+\end{document}
+
+
+
+
+
+

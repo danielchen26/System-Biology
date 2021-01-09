@@ -1,0 +1,329 @@
+% important: seems to need graphicx, does not woprk with graphics; maybe
+%         because using png (and old notes have jpg only, so no problem there?)
+\def\FIGDIR{figdir_ingalls}
+\documentclass[12pt]{article}
+
+%\newcommand{\ans}[1]{}
+\newcommand{\ans}[1]{
+
+{\bf ANSWER:} #1\medskip}
+
+\usepackage{color}  %for changes
+\newcommand{\edo}{\printindex\end{document}}
+\usepackage{times}
+\usepackage{epsf,latexsym,amssymb}
+
+\topmargin -0.8in
+\textheight 9.4in
+\oddsidemargin 0.0in
+\evensidemargin 0.0in
+\textwidth 6.7in
+\parskip=5pt plus 1pt minus 1pt
+\parindent0pt
+
+
+\newcommand{\comment}[1]{}
+
+\newcommand{\pic}[2]{\includegraphics[scale=#1]{\FIGDIR/#2}}
+\newcommand{\picc}[2]{\centerline{\pic{#1}{#2}}}
+
+\newcommand{\beq}{\begin{eqnarray}}
+\newcommand{\eeq}{\end{eqnarray}}
+\newcommand{\beqn}{\begin{eqnarray*}}
+\newcommand{\eeqn}{\end{eqnarray*}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+\newcommand{\be}[1]{\begin{equation}\label{#1}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\abs}[1]{\left\vert{#1}\right\vert}
+
+\newcommand{\arrowchem}[1]{{\stackrel{\displaystyle#1}{\longrightarrow}}}
+\newcommand{\arrowschem}[2]{\raisebox{-2ex}%
+	{$\stackrel{\stackrel{\displaystyle#1}{\longrightarrow}}%
+	{\stackrel{\longleftarrow}{#2}}$}}
+\newcommand{\minp}[2]{\begin{minipage}{#1\textwidth}#2\end{minipage}}
+\newcommand{\mypmatrix}[1]{\left(\begin{array}{cccccccccccc}#1\end{array}\right)}
+
+
+
+
+% new commands specific to this file:
+%\usepackage{graphics}
+\usepackage{graphicx}
+\newcommand{\tim}{} % could be (t)
+\newcommand{\CER}{\mbox{C}_{\mbox{\sc er}}}
+\newcommand{\RICC}{\mbox{RIC}^+\mbox{C}^-}
+\newcommand{\RIC}{\mbox{RIC}^+}
+\newcommand{\RI}{\mbox{RI}}
+\newcommand{\CC}{\mbox{C}}
+\newcommand{\RR}{\mbox{R}}
+
+\begin{document}
+
+
+
+\subsection*{MATLAB project: calcium oscillations}
+
+\ans{VERSION WITH ANSWERS}
+
+Many types of animal cells use calcium ions, Ca$2^+$, as part of signal
+transduction cascades. Calcium is used to trigger, for example, the initiation
+of embryonic development in fertilized egg cells, the contraction of muscle
+cells, and the secretion of neurotransmitters from neurons.
+
+Calcium signals are sent by rapid spikes in cytosolic Ca$2^+$ concentration.
+Cells that employ these signals normally have low levels of cytosolic calcium
+(about 10-100 nM). These low levels are maintained by ATP-dependent pumps that
+export cytosolic Ca$2^+$ both out of the cell and into the endoplasmic
+reticulum (ER). The concentration of Ca$2^+$ in the ER can reach as high as 1
+mM (106 nM). Signaling pathways open calcium channels in the ER membrane,
+leading to rapid (diffusion-driven) surges in cytosolic calcium levels.
+
+However, because calcium is involved in many cellular processes, persistent
+high concentrations can be detrimental. (For example, failure to remove
+calcium from muscle cells keeps them in a state of constant tension.  This is
+what causes rigor mortis.) Some cells that use calcium as an intracellular
+signaling molecule avoid persistently high Ca$2^+$ concentrations by generating
+oscillations in calcium levels. The frequency of the oscillations is dependent
+on the intensity of the signal, while the amplitude is roughly constant. The
+downstream cellular response is dependent on the oscillation frequency.
+
+We will consider an instance of this frequency-encoding mechanism in mammalian
+liver cells.  These cells respond to certain hormones with the activation of
+G-protein-coupled receptors (Section 6.1.2). The G-protein triggers a
+signaling pathway that results in production of inositol 1,4,5-triphosphate
+(IP3). These IP3 molecules bind a receptor that is complexed with a calcium
+channel in the membrane of the ER.
+
+The IP3 binding event exposes two receptor sites at which Ca$2^+$ ions can bind
+(Figure 6.17).  These two sites have different affinities for Ca$2^+$.  At low
+concentration only one site is occupied, while at higher concentrations both
+sites are bound. The calcium binding events have opposing effects on the
+receptor-channel complex.  Binding of the first calcium ion causes the channel
+to open, allowing Ca$2^+$ to flow into the cytosol.  Binding of the second ion
+causes the channel to close. This interplay of positive and negative feedback
+generates oscillations in the cytosolic Ca$2^+$ concentration, as follows. When
+cytosolic calcium levels are low, the channels are primarily in the open
+state, and so Ca$2^+$ rushes into the cytosol from the ER. When high calcium
+levels are reached, the channels begin to shut. Once most of the channels are
+closed, the continual action of the Ca$2^+$ pumps eventually causes a return to
+low cytosolic [Ca$2^+$], from which the cycle repeats.
+
+In 1993 Hans Othmer and Yuanhua Tang developed a model of this pathway that
+focuses on the behaviour of the channel, described in:
+
+\emph{H.G. Othmer, Signal transduction and second messenger systems. In Case
+  Studies in Mathematical Modelling: Ecology, Physiology, and Cell Biology,
+  H.G. Othmer, F.R. Adler, M.A. Lewis and J. C. Dallon, eds, 99-126, 1996}
+
+Taking I =[IP3] as the system input, the receptor binding events are described
+by:
+\[
+\mbox{I} + \mbox{R} \;\arrowschem{k_1}{k_{-1}}\; \RI
+%\]
+%\[
+\quad\quad\quad\quad
+\RI + \mbox{C} \;\arrowschem{k_2}{k_{-2}}\; \RIC 
+%\]
+\quad\quad\quad\quad
+%\[
+\RIC + \mbox{C}  \;\arrowschem{k_3}{k_{-3}}\; \RICC
+\]
+where R is the receptor-channel complex, C is cytosolic calcium, \RI\ is the
+IP3-bound receptor- channel complex, $\RIC$ is the open (one Ca$2^+$-bound)
+channel, and $\RICC$ is the closed (two Ca$2^+$-bound) channel.
+
+The rate of diffusion of calcium into the cytosol depends on the concentration
+of calcium in the ER (denoted [$\CER$], and held fixed) and the abundance of open
+channels.  The rate of diffusion is proportional to the difference in
+concentration between the two compartments. This transport rate is modeled as 
+\[
+\mbox{rate of Ca$2^+$ diffusion into the cytosol
+   $=v_r(\gamma _0+\gamma _1[\RIC])([\CER ]- [\CC])$}
+\]
+where $v_r$ is the ratio of the ER and cytosolic volumes, and $\gamma _0$
+characterizes a channel-independent ``leak.'' 
+
+\picc{0.3}{fig617_ingalls_calcium.png}
+
+\emph{Calcium-induced calcium release. A G-protein pathway (not shown)
+  responds to a hormone signal by inducing production of IP3, which activates
+  calcium channels in the ER membrane. These channels bind Ca$2^+$ ions at two
+  sites. The first binding event causes the channel to open; the second causes
+  it to close. Calcium pumps continually pump Ca$2^+$ ions from the cytosol to
+  the ER.}
+
+
+Calcium is continually pumped from the cytosol to the ER.  Presuming strong
+cooperativity of calcium uptake, the pumping rate is modeled as
+\[
+\mbox{rate of Ca$2^+$ pumping out of the cytosol 
+$=\frac{p_1[\CC]^4}{p_2^4+[\CC]^4 }$}
+\]
+for parameters $p_1$ and $p_2$. 
+The complete model is then: 
+%vr*(gamma0+gamma1*S(4))*(Cs-S(1)) - (p1*S(1)^4)/(p2^4+S(1)^4)
+%-k1*I*S(2)+km1*S(3)
+%-(km1+k2*S(1))*S(3)+ k1*I*S(2) + km2*S(4)
+%-(km2+k3*S(1))*S(4) + k2*S(1)*S(3) + km3*S(5)
+%k3*S(1)*S(4) - km3*S(5)
+\beqn
+d/dt[\RR]\tim &=& -k_{1}[I]\tim \cdot [\RR]\tim +k_{-1}[\RI]\tim \\
+d/dt[\RI]\tim &=& -(k_{-1}+ 
+k_2[\CC]\tim )\cdot [\RI]\tim +
+k_{1}[I]\tim \cdot [\RR]\tim +
+k_{-2}[\RIC]\tim \\
+d/dt[\RIC]\tim &=& -(k_{-2}+
+k_3[\CC]\tim )\cdot [\RIC]\tim +
+k_2[\CC]\tim \cdot [\RI]\tim +
+k_{-3}[\RICC]\tim \\
+d/dt[\RICC]\tim &=& k_3[\CC]\tim \cdot [\RIC]\tim - 
+k_{-3}[\RICC]\tim \\
+d/dt[\CC]\tim &=& v_r(\gamma _0+\gamma _1[\RIC])([\CER ]- [\CC])
+- \frac{p_1[\CC]^4}{p_2^4+[\CC]^4 }
+\eeqn
+
+The following simulation in illustrates the system's oscillatory
+behavior.  When the calcium level is low, the concentration of open channels
+increases, followed by a rapid increase in [Ca$2^+$].
+Once the calcium concentration rises, the channels close, and the calcium
+level falls, setting up a new cycle. 
+
+
+\picc{0.6}{calcium_main_illustration.png}
+%{fig618_ingalls_calcium.png}
+
+\emph{Calcium oscillations. This simulation shows the oscillatory
+behaviour of the system. When calcium levels are low, channels open, letting
+more Ca$2^+$ into the cytosol. As calcium levels rise, channels begin to close,
+leading to a drop in cytosolic Ca$2^+$ levels. The IP3 concentration is fixed at
+2 $\mu M$. B. In this simulation the input level of IP3 changes, demonstrating the
+frequency-encoding ability of the system. As the IP3 level(in $\mu M$) increases,
+the frequency of the oscillations increases considerably, while the amplitude
+is roughly constant.
+Parameter values used : (in $1/\mu M$ 1/s) $k_{1} = 12, k_2 = 15, k_3 =1.8$; (in
+1/s) $k_{-1} = 8, k_{-2} =1.65, k_{-3} =0.21, \gamma _0 =0.1, \gamma _1 =20.5; [\CER ]=8.37
+\mu M$, $p_1 =8.5$ $\mu M$ 1/s, $p_2 =0.065$ $\mu M$, $v_r =0.185$.}
+
+
+
+
+
+%Panel B demonstrates the system's
+%frequency-encoding ability. As the input is increased (in steps), the
+%frequency of oscillations increases while the amplitude changes very little.
+
+\newpage
+\subsection*{Problems}
+\ben
+\item
+For this problem, you will use the MATLAB program ``calcium\_cytosolic''
+which was provided by the instructor. 
+
+You have to place the file calcium\_cytosolic.m in a folder that MATLAB will
+find.  To run the program, just type ``calcium\_cytosolic'' in MATLAB.
+
+Please print and hand-in the corresponding plots.  It is OK to give a
+very approximate answer to the questions about frequency.
+\ben
+\item
+Look at the program listing.
+(Open the file calcium\_cytosolic.m using MATLAB or your favorite text editor.)
+What are the initial concentrations for the variables?  You don't need to
+``know MATLAB'' to read the file and figure this out!
+\ans{$R(0)=1$ (the total amount of receptors), and the rest all zero.}
+\item
+Run the program, which has an IP3 concentration set to $I=1$ at time $t=20$.
+You will observe that, after stimulation, the system settles into an
+oscillation in cytosolic calcium with a frequency of roughly 0.14 1/s.  This
+is estimated as follows: on an interval of length 100 seconds, from time
+$t=25$ to $t=125$ (more or less!{}) we have about 14 complete oscillations, and
+14/100 = 0.14.
+\item
+Modify the program to set $I=0.7$.  (Open the file calcium\_cytosolic.m using
+MATLAB or your favorite text editor, and change the line where $I$ was set to
+1.)  
+Now run the program, and answer: what frequency of oscillations results now?
+\ans{0.11}
+\item
+Repeat with $I=2$.
+\ans{0.19}
+\item
+Repeat with $I=10$.
+\ans{0.24}
+\item
+Speculate on  what happens if the input $I$ is set really large.  Does the
+frequency tend to infinity?
+\ans{The frequency does not go to infinity.  In fact, biologically, because
+IP3 has to bind to receptors, and there is a finite number of receptors, at
+some point more IP3 will not make any difference.  The maximum frequency seems
+to be roughly 0.25}
+%\item
+%Repeat with $I=0.4$.  What do you see now?
+%\ans{There are no oscillations.}
+\item
+Repeat with $I=0.5$.  What do you see now?
+\ans{There is a peak of activity but there are no oscillations.}
+\item
+Suppose now that (perhaps because of a mutation), calcium cannot
+bind anymore to the open channels, so as to close them.
+Answer: which parameter $k_i$ has to be changed to zero in order to model this
+new system?
+\ans{Set $k_3=0$}
+\item
+Now set the parameter $k_i$ from the previous part to zero, and run the
+program again (with $I=1$).  {\bf Make sure} to change the ``2.5'' in the line:
+\begin{verbatim}
+axis([0 120 0 2.5])
+\end{verbatim}
+to something large, let us say 10, before running the program.  (This sets the
+$y$ axis to be between 0 and 10.)  
+Interpret in words what you see.
+\ans{The concentration of cytosolic calcium approaches a high limit.  The
+value is higher than earlier, because the channels remain open, so the calcium
+does not re-enter the ER.}
+\een
+% next from Ingalls' book:
+\item
+%6.8.12 
+Calcium-induced calcium release: frequency encoding. 
+%Consider the model of calcium oscillations presented earlier.  
+Run simulations to explore the dependence of frequency and amplitude on the
+strength of the input.  Prepare plots showing frequency and amplitude as a
+function of model input I over the range 1-10 $\mu M$. Does the amplitude vary
+significantly over this range? What about for higher input levels?
+
+\item
+%6.8.13 
+Calcium-induced calcium release: parameter balance.
+%Consider the model of calcium oscillations presented earlier.  
+The model's oscillatory behaviour depends on a balance between the positive
+and negative effects of calcium binding.  Oscillations are easily lost if
+parameter values vary. Explore this sensitivity by choosing one of the model
+parameters and determining the range of values over which the system exhibits
+oscillations(with I =1 $\mu M$). Provide an intuitive explanation for why
+oscillations are lost outside the range you have identified.
+
+\item
+%6.8.14 
+Calcium-induced calcium release: frequency decoding. 
+One mechanism by which cells can ``de-code'' the information encoded in
+calcium oscillations is by the activity of Ca$2^+$/calmodulin-dependent
+protein kinases (CaM-kinases). Calmodulin is a protein that mediates a number
+of calcium-dependent cellular processes. It has four high-affinity Ca$2^+$
+binding sites, and is activated when saturated by Ca$2^+$ . CaM-kinases are
+activated (by autophosphorylation) upon binding to active calmodulin. The
+CaM-kinaseactivityis ``turned off'' byphosphatases.  Extend the model to
+include CaM-kinase activity, and verify that, for persistent oscillations, the
+higher the frequency ofCa$2^+$ oscillations, the higher the average CaM-kinase
+activity level.  To keep the model simple, suppose that four calcium ions bind
+calmodulin simultaneously (i.e. with high cooperativity), and that CaM-kinase
+autophosphorylation occurs immediately upon calmodulin binding. (Hint: the
+frequency-dependent effect is strongest when the time-scales of deactivation
+of calmodulin and CaM-kinase are slow, so that high-frequency inputs cause
+near-constant activity levels.)
+\een
+
+\end{document}
